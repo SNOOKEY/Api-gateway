@@ -32,14 +32,15 @@ This repository demonstrates the step-by-step transformation of a microservice a
 
 ### 📌 Roadmap & Phases
 
-- [x] **Phase 1: Beginner Single-Stage Build** (Current)
+- [x] **Phase 1: Beginner Single-Stage Build**
   - Single-stage build built on top of a generic `ubuntu:22.04` base image.
   - Manual installation of Python 3 and `pip`.
   - Simple FastAPI application with `/`, `/health`, and `/info` endpoints.
-- [ ] **Phase 2: Optimized Base Image & Multi-Stage Builds** (Planned)
-  - Transition to official Python base images (`python:3.11-slim`).
-  - Implementation of multi-stage Docker builds to reduce image footprint.
-  - Non-root user security configuration.
+- [x] **Phase 2: Optimized Base Image & Multi-Stage Builds**
+  - Multi-stage build on `python:3.12-slim` base image for a lean production image footprint.
+  - Separation of runtime (`requirements.txt`) and dev/test dependencies (`requirements-dev.txt`).
+  - Automated testing with `pytest` + `httpx` and code linting with `flake8`.
+  - GitHub Actions CI pipeline (`.github/workflows/ci.yml`) triggering lint, test, and build on push/PR.
 - [ ] **Phase 3: Production Readiness & Orchestration** (Planned)
   - Docker Compose setup for API Gateway routing and dependencies.
   - Reverse proxy integration, environment variable management, and health checks.
@@ -52,15 +53,30 @@ This repository demonstrates the step-by-step transformation of a microservice a
 .
 ├── README.md
 ├── .gitignore
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── images/
 │   └── banner.png
-└── phase1/
+├── phase1/
+│   ├── Dockerfile
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── .dockerignore
+│   └── app/
+│       ├── .dockerignore
+│       └── main.py
+└── phase2/
     ├── Dockerfile
     ├── README.md
     ├── requirements.txt
+    ├── requirements-dev.txt
+    ├── test_main.py
     ├── .dockerignore
+    ├── .github/
+    │   └── workflows/
+    │       └── ci.yml
     └── app/
-        ├── .dockerignore
         └── main.py
 ```
 
