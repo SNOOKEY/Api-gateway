@@ -1,6 +1,28 @@
 # API Gateway - Docker Progression
 
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+
+![API Gateway Banner](images/banner.png)
+
 A FastAPI-based API Gateway service built to demonstrate the evolution of Docker containerization strategies across progressive maturity phases.
+
+---
+
+## 🏗️ Architecture & Container Flow
+
+```mermaid
+flowchart LR
+    Client["Client / Browser"] -->|"HTTP Request (Port 8000)"| DockerHost["Host Machine"]
+    subgraph DockerHost ["Host Machine"]
+        subgraph Container ["Phase 1 Container (ubuntu:22.04)"]
+            Uvicorn["Uvicorn Server"] --> FastAPIApp["FastAPI Application (app.main:app)"]
+            FastAPIApp --> Endpoints["Endpoints: /, /health, /info, /docs"]
+        end
+    end
+```
 
 ---
 
@@ -30,8 +52,11 @@ This repository demonstrates the step-by-step transformation of a microservice a
 .
 ├── README.md
 ├── .gitignore
+├── images/
+│   └── banner.png
 └── phase1/
     ├── Dockerfile
+    ├── README.md
     ├── requirements.txt
     ├── .dockerignore
     └── app/
